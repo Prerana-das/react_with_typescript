@@ -13,14 +13,17 @@ export interface IState{
     email:string,
     title:string,
     image?:string,
-    isEdit?:boolean
-  }[]
+    isEdit?:boolean,
+  }[],
+  editIndex?:string
 }
 function App() {
   const [number,setNumber] =useState<number | string | boolean>(5)
   const [people, setPeople] = useState<IState["people"]>([
   
   ])
+  const [editIndex,setEditIndex] =useState<string>()
+
   // const [people,setPeople] =useState<IState["people"]>([])
 
   // people.map(person=>{
@@ -29,9 +32,11 @@ function App() {
 
 
   React.useEffect(() => {
+    setEditIndex('dfsd')
     axios.get('http://localhost:3333/getPeoples').then((response) => {
       console.log('response',response)
       setPeople(response.data)
+      
     });
   }, []);
 
@@ -45,7 +50,7 @@ function App() {
       <h1>
         List
       </h1>
-      <List setPeople={setPeople} people={people}/>
+      <List setPeople={setPeople} people={people} editIndex={editIndex}/>
       {/* <AddToList setPeople={setPeople} people={people}/> */}
 
     </div>
